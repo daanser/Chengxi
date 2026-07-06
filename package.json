@@ -4,7 +4,7 @@
   "version": "0.0.2",
   "scripts": {
     "dev": "astro dev",
-    "build": "mkdir -p dist/server && touch dist/server/entry.mjs && astro build; node -e \"const fs=require('fs');const p='dist/server/wrangler.json';if(fs.existsSync(p)){let c=fs.readFileSync(p,'utf-8');c=c.replace(/,?\\\"kv_namespaces\\\":\\[[^\\]]+\\]/g,'');c=c.replace(/,?\\\"assets\\\":\\{[^}]+\\}/g,'');c=c.replace(/,?\\\"previews\\\":\\{[^}]+\\}/g,'');c=c.replace(/\\\"ASSETS\\\"/g,'\\\"MY_ASSETS\\\"');c=c.replace(/\\\"main\\\":\\\"[^\\\"]+\\\",?/g,'');c=c.replace(/\\\"rules\\\":\\[[^\\]]+\\],?/g,'');fs.writeFileSync(p,c);console.log('cleaned:'+c.length)}\"",
+    "build": "mkdir -p dist/server && touch dist/server/entry.mjs && astro build; rm -f dist/server/wrangler.json dist/server/.prerender/wrangler.json",
     "deploy": "wrangler deploy",
     "preview": "wrangler dev",
     "astro": "astro",
