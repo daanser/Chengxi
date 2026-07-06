@@ -1,8 +1,7 @@
 {
+  "$schema": "node_modules/wrangler/config-schema.json",
   "name": "chengxi",
+  "pages_build_output_dir": "dist",
   "compatibility_date": "2025-07-01",
-  "compatibility_flags": ["nodejs_compat"],
-  "assets": {
-    "directory": "./dist/client"
-  }
+  "compatibility_flags": ["nodejs_compat"]
 }
