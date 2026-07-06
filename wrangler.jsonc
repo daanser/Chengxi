@@ -1,0 +1,9 @@
+{
+  "name": "chengxi",
+  "main": "./dist/server/entry.mjs",
+  "compatibility_date": "2025-07-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./dist/client"
+  }
+}

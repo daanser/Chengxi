@@ -4,9 +4,9 @@
   "version": "0.0.2",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
+    "deploy": "wrangler deploy",
+    "preview": "wrangler dev",
     "astro": "astro",
     "site-setup": "node scripts/setup.mjs",
     "eslint": "eslint 'src/**/*.{js,astro}'",
