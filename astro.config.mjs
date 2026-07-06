@@ -72,6 +72,7 @@ export default defineConfig({
   adapter: cloudflare({
     imageService: false,
     session: false,
+    assetsBinding: false,
   }),
   vite: {
     assetsInclude: "**/*.riv",
