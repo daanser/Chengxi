@@ -4,7 +4,7 @@
   "version": "0.0.2",
   "scripts": {
     "dev": "astro dev",
-    "build": "mkdir -p dist/server && touch dist/server/entry.mjs && astro build; rm -f dist/server/wrangler.json dist/server/.prerender/wrangler.json",
+    "build": "mkdir -p dist/server && touch dist/server/entry.mjs && astro build; rm -f dist/server/wrangler.json dist/server/.prerender/wrangler.json; node -e \"const f=require('fs').readFileSync('dist/server/entry.mjs','utf-8').replace('./chunks/','./server/chunks/');require('fs').writeFileSync('dist/_worker.js',f);console.log('_worker.js created')\"",
     "deploy": "wrangler deploy",
     "preview": "wrangler dev",
     "astro": "astro",
