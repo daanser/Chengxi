@@ -72,7 +72,10 @@ export default defineConfig({
     remarkPlugins: [remarkReadingTime],
   },
   output: "server",
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    imageService: false,
+    session: false,
+  }),
   vite: {
     assetsInclude: "**/*.riv",
   },
