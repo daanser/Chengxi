@@ -6,8 +6,8 @@ export const SITE = {
     firstName: "Chengxi",
     lastName: "Wen",
     fullName: "Chengxi Wen",
-    shortName: "Chengxi",
-    jobTitle: "全栈开发工程师",
+    shortName: "Chengxi / Daanawa",
+    jobTitle: "一名来自 China Mainland 的废物萌新",
     twitterHandle: "daanawa",
   },
   location: {
