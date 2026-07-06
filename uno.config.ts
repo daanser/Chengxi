@@ -1,5 +1,5 @@
 // uno.config.ts
-import { defineConfig, presetWind3, presetWebFonts } from "unocss";
+import { defineConfig, presetWind3 } from "unocss";
 
 export default defineConfig({
   content: {
@@ -16,7 +16,7 @@ export default defineConfig({
       "custom-hover": `1px 1px 0`,
     },
     fontFamily: {
-      sans: ["CabinetGrotesk", "Satoshi"],
+      sans: "CabinetGrotesk, Satoshi",
     },
     gridTemplateRows: {
       "auto-250": "repeat(auto-fill, 250px)",
@@ -52,12 +52,5 @@ export default defineConfig({
   },
   presets: [
     presetWind3(),
-    presetWebFonts({
-      provider: "fontshare",
-      fonts: {
-        sans: ["Cabinet Grotesk", "Satoshi"],
-        serif: "Zodiak",
-      },
-    }),
   ],
 });
