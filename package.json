@@ -4,7 +4,7 @@
   "version": "0.0.2",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "mkdir -p dist/server && touch dist/server/entry.mjs && astro build",
     "deploy": "wrangler deploy",
     "preview": "wrangler dev",
     "astro": "astro",
