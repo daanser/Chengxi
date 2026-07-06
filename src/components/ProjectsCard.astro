@@ -1,0 +1,47 @@
+---
+import Card from "./Card/index.astro";
+---
+
+<Card
+  colSpan="md:col-span-1"
+  rowSpan="md:row-span-2"
+  title="🚀 参与项目"
+  padding="p-3"
+  acgGlow={true}
+>
+  <div class="flex flex-col gap-2 mt-1">
+    <a
+      href="https://github.com/Trans-Prism/Trans-Prism"
+      target="_blank"
+      class="group flex items-center gap-2 p-1.5 rounded-lg hover:bg-white/5 transition-colors"
+    >
+      <div class="w-6 h-6 rounded bg-gradient-to-br from-purple-500/40 to-blue-500/40 flex items-center justify-center flex-shrink-0">
+        <span class="text-xs">🔮</span>
+      </div>
+      <div class="flex flex-col min-w-0">
+        <span class="text-sm font-bold text-white group-hover:text-purple-400 transition-colors truncate">
+          Trans-Prism
+        </span>
+        <span class="text-[10px] text-darkslate-300 leading-tight">专为跨性别群体打造的 Flutter 实用工具箱</span>
+      </div>
+      <span class="ml-auto text-[9px] text-darkslate-400 group-hover:text-white transition-colors">↗</span>
+    </a>
+
+    <a
+      href="https://www.transhelper.org/"
+      target="_blank"
+      class="group flex items-center gap-2 p-1.5 rounded-lg hover:bg-white/5 transition-colors"
+    >
+      <div class="w-6 h-6 rounded bg-gradient-to-br from-green-500/40 to-teal-500/40 flex items-center justify-center flex-shrink-0">
+        <span class="text-xs">🌐</span>
+      </div>
+      <div class="flex flex-col min-w-0">
+        <span class="text-sm font-bold text-white group-hover:text-green-400 transition-colors truncate">
+          TransHelper
+        </span>
+        <span class="text-[10px] text-darkslate-300 leading-tight">开源技术团队，专注跨性别群体实用软件</span>
+      </div>
+      <span class="ml-auto text-[9px] text-darkslate-400 group-hover:text-white transition-colors">↗</span>
+    </a>
+  </div>
+</Card>

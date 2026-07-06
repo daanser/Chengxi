@@ -3,40 +3,31 @@ import Card from "./Card/index.astro";
 import { SITE } from "../site-config";
 ---
 
-<Card colSpan="md:col-span-1" rowSpan="md:row-span-6" title="About me">
+<Card colSpan="md:col-span-1" rowSpan="md:row-span-4" title="关于我">
   <div class="flex flex-col gap-2">
     <p class="sr-only">
-      Hi, I'm {SITE.author.firstName}, a full stack software developer (frontend-focused) from {SITE.location.countryName}. My primary
-      tools of choice includes: JavaScript, React, Solidjs, Astro, Svelte,
-      Nodejs. I also have knowledge of SEO and design. Beyond coding, I'm passionate about design, illustration,
-      animation and 3D modelling and traveling. An unusual hobby of mine is
-      collecting vintage passports, they're interesting pieces of history to me.
-      While I have some preferred tools, I always choose the best one for the
-      job, even if it's not on my usual list. My goal is to find the right
-      solution for each project.
+      你好，我是 {SITE.author.firstName}，一名来自 China Mainland 的废物萌新。
     </p>
     <div aria-hidden="true" class="text-sm font-light">
       <p class="text-sm font-light">
-        Hi, I'm {SITE.author.firstName}, a full stack software developer (frontend-focused) from {SITE.location.countryName}.
-      </p>
-      <br />
-      My primary tools of choice includes:
-      <ul class="list-disc list-inside">
-        <li>JavaScript</li>
-        <li>React</li>
-        <li>Solidjs</li>
-        <li>Astro</li>
-        <li>Svelte</li>
-        <li>Nodejs</li>
-      </ul>
-      <p class="text-sm font-light mt-2">
-        I also have knowledge of SEO and UX/UI.
+        你好，我是 {SITE.author.firstName}，
+        一名来自 China Mainland 的废物萌新。
       </p>
     </div>
-    <p class="text-sm font-light">
-      Beyond coding, I'm passionate about design, illustration, animation and 3D
-      modelling and traveling. An unusual hobby of mine is collecting vintage
-      passports, they're interesting pieces of history to me.
+
+    <!-- 技能栈精简展示 -->
+    <div class="flex flex-wrap gap-1.5 mt-1">
+      <span class="text-[10px] px-2 py-0.5 rounded-full bg-darkslate-400/60 text-darkslate-200 border border-darkslate-400/30">Flutter</span>
+      <span class="text-[10px] px-2 py-0.5 rounded-full bg-darkslate-400/60 text-darkslate-200 border border-darkslate-400/30">Dart</span>
+      <span class="text-[10px] px-2 py-0.5 rounded-full bg-darkslate-400/60 text-darkslate-200 border border-darkslate-400/30">Python</span>
+      <span class="text-[10px] px-2 py-0.5 rounded-full bg-darkslate-400/60 text-darkslate-200 border border-darkslate-400/30">VSCode</span>
+      <span class="text-[10px] px-2 py-0.5 rounded-full bg-darkslate-400/60 text-darkslate-200 border border-darkslate-400/30">Vue</span>
+      <span class="text-[10px] px-2 py-0.5 rounded-full bg-darkslate-400/60 text-darkslate-200 border border-darkslate-400/30">Minecraft</span>
+    </div>
+
+    <!-- 爱好与个人兴趣 -->
+    <p class="text-xs font-light text-darkslate-300 mt-1">
+      除此以外还热衷：设计、插画、动画、3D 建模、旅行 & ACG 🎮
     </p>
   </div>
 </Card>

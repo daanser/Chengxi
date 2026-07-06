@@ -1,0 +1,104 @@
+---
+interface Props {
+  src: string;
+  alt?: string;
+  maxLongEdge?: number;
+}
+
+const { src, alt = "protected image", maxLongEdge = 540 } = Astro.props;
+---
+
+<div
+  class="protected-image-container relative w-full h-full overflow-hidden"
+  style="user-select: none; -webkit-user-select: none;"
+  data-src={src}
+  data-max-long-edge={maxLongEdge}
+>
+  <canvas class="w-full h-full" draggable="false" />
+  <!-- 透明盖层：拦截右键和拖拽 -->
+  <div
+    class="overlay absolute inset-0 z-10"
+    style="cursor: default;"
+  />
+</div>
+
+<script>
+  function initProtectedImages() {
+    const containers = document.querySelectorAll<HTMLElement>(".protected-image-container");
+
+    containers.forEach((container) => {
+      const canvas = container.querySelector<HTMLCanvasElement>("canvas");
+      const overlay = container.querySelector<HTMLElement>(".overlay");
+      const src = container.dataset.src;
+      const maxLongEdge = parseInt(container.dataset.maxLongEdge || "540", 10);
+
+      if (!canvas || !src) return;
+
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+
+      // 拦截右键菜单
+      container.addEventListener("contextmenu", (e) => e.preventDefault());
+      if (overlay) {
+        overlay.addEventListener("contextmenu", (e) => e.preventDefault());
+      }
+
+      // 禁用拖拽
+      container.addEventListener("dragstart", (e) => e.preventDefault());
+      canvas.addEventListener("dragstart", (e) => e.preventDefault());
+
+      // 禁用选中
+      container.addEventListener("selectstart", (e) => e.preventDefault());
+
+      // 动态 Blob 加载
+      fetch(src)
+        .then((res) => res.blob())
+        .then((blob) => {
+          const blobUrl = URL.createObjectURL(blob);
+          const img = new Image();
+          img.onload = () => {
+            // 计算降分辨率后的尺寸（长边 = maxLongEdge）
+            let w = img.naturalWidth;
+            let h = img.naturalHeight;
+            if (w > h) {
+              h = Math.round((h / w) * maxLongEdge);
+              w = maxLongEdge;
+            } else {
+              w = Math.round((w / h) * maxLongEdge);
+              h = maxLongEdge;
+            }
+
+            canvas.width = w;
+            canvas.height = h;
+            ctx.drawImage(img, 0, 0, w, h);
+
+            // 释放 Blob URL
+            URL.revokeObjectURL(blobUrl);
+          };
+          img.src = blobUrl;
+        })
+        .catch(() => {
+          // 静默失败，不暴露图片路径
+        });
+    });
+  }
+
+  // 在 Astro 页面加载后初始化
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initProtectedImages);
+  } else {
+    initProtectedImages();
+  }
+
+  // 支持 Astro View Transitions
+  document.addEventListener("astro:after-swap", initProtectedImages);
+</script>
+
+<style>
+  .protected-image-container {
+    -webkit-touch-callout: none;
+  }
+  .overlay {
+    -webkit-touch-callout: none;
+  }
+</style>

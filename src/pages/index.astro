@@ -8,7 +8,9 @@ import TimeZone from "../components/TimeZoneCard.astro";
 import AboutMe from "../components/AboutMe.astro";
 import Now from "../components/Now.astro";
 import Globe from "../components/Globe";
-import DesignWorksCard from "../components/DesignWorksCard.astro";
+import NowPlayingCard from "../components/NowPlayingCard.astro";
+import ProtectedImage from "../components/ProtectedImage.astro";
+import ProjectsCard from "../components/ProjectsCard.astro";
 import { SITE } from "../site-config";
 ---
 
@@ -34,7 +36,7 @@ import { SITE } from "../site-config";
 </script>
 
 <Layout
-  description={`I'm a developer based in ${SITE.location.countryName}, passionate about user experience and specializing in engaging animations and micro-interactions. My primary tools of choice include: JavaScript, React, Solid.js, Astro, Svelte, and Node.js.`}
+  description={`我是一名来自 ${SITE.location.countryName} 的软件开发者，专注于用户体验、动画、微交互和 SEO。主要技术栈包括：JavaScript、React、Solid.js、Astro、Svelte 和 Node.js。`}
   title={`${SITE.author.fullName} - ${SITE.author.jobTitle}`}
 >
   <main
@@ -42,34 +44,17 @@ import { SITE } from "../site-config";
   >
     <IntroCard />
     <AboutMe />
+    <NowPlayingCard />
+    <ProjectsCard />
     <ContactsCard />
-    <TimeZone />
-    <DesignWorksCard />
     <Now />
-    <Card
-      href="playground"
-      colSpan="md:col-span-1"
-      rowSpan="md:row-span-1"
-      title="Playground"
-    />
-    <Card
-      href="/guestbook"
-      colSpan="md:col-span-1"
-      rowSpan="md:row-span-1"
-      title="Guestbook"
-    />
-    <Card
-      href="/blog"
-      colSpan="md:col-span-1"
-      rowSpan="md:row-span-1"
-      title="Blog"
-    />
+    <TimeZone />
     <Card
       colorText="text-neutral-900"
       colSpan="md:col-span-1"
       href="travel"
       rowSpan="md:row-span-1"
-      title="Countries I visited"
+      title="我去过的地区"
     >
       <div class="h-full w-full absolute inset-0 -z-10">
         <div class="hidden md:block h-full w-full">
@@ -80,16 +65,20 @@ import { SITE } from "../site-config";
         </div>
       </div>
     </Card>
-    <ThemeChangeCard />
+    <!-- ThemeChangeCard 放到 ContactsCard 底部空位 -->
+    <div style="grid-column: 3; grid-row: 8;">
+      <ThemeChangeCard />
+    </div>
 
-    <Card colSpan="md:col-span-1" rowSpan="md:row-span-1">
-      <p class="text-xs">
-        © 2025 · Crafted with ♥️ using <a
-          class="text-red-500"
-          href="https://astro.build/"
-          target="_blank">Astro</a
-        > by Me.
-      </p>
-    </Card>
+    <!-- 我的OC 卡片（与 ContactsCard 同尺寸，强制放在第4列第5-8行） -->
+    <div style="grid-column: 4; grid-row: 5 / span 4;">
+      <Card colSpan="md:col-span-1" rowSpan="md:row-span-4" padding="p-4" title="我的OC">
+        <ProtectedImage src="/oc/4k.png" alt="OC" maxLongEdge={540} />
+      </Card>
+    </div>
   </main>
+
+  <footer class="text-center text-xs text-darkslate-300 -mt-2 pb-4">
+    ——© 2026 · 用 ♥️ 和 <a class="text-red-500" href="https://astro.build/" target="_blank">Astro</a> 构建——
+  </footer>
 </Layout>

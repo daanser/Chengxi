@@ -1,0 +1,156 @@
+---
+import Card from "./Card/index.astro";
+---
+
+<Card
+  colSpan="md:col-span-1"
+  rowSpan="md:row-span-2"
+  title="🎮 正在游玩"
+  padding="p-4"
+  acgGlow={true}
+>
+  <div style="display:flex;gap:0.75rem;align-items:flex-start;height:100%;margin-top:0.5rem;">
+    <!-- 封面区域 - 默认显示睡觉emoji -->
+    <div style="width:72px;height:96px;border-radius:0.5rem;overflow:hidden;flex-shrink:0;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;">
+      <img id="sc-img" style="width:100%;height:100%;object-fit:cover;display:none;" src="" alt="" />
+      <span id="sc-emoji" style="font-size:32px;">😴</span>
+    </div>
+
+    <!-- 信息区域 - 默认显示离线 -->
+    <div style="display:flex;flex-direction:column;flex:1;min-width:0;">
+      <div style="display:flex;align-items:center;gap:0.375rem;margin-bottom:0.25rem;">
+        <span id="sc-dot" style="width:8px;height:8px;border-radius:50%;background:#6b7280;"></span>
+        <span id="sc-txt" style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;color:#6b7280;">离线</span>
+      </div>
+      <h3 id="sc-name" style="font-size:13px;font-weight:700;color:#fff;margin:0;line-height:1.4;word-break:break-word;">Steam处于离线状态，大概率是在睡大觉</h3>
+      <div id="sc-time-wrap" style="display:none;align-items:center;gap:0.25rem;margin-top:auto;padding-top:0.5rem;">
+        <span style="font-size:10px;color:#94a3b8;">🕐</span>
+        <span id="sc-time" style="font-size:10px;color:#94a3b8;">0 小时 0 分钟</span>
+      </div>
+    </div>
+
+    <!-- 右侧状态 -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:0.25rem;">
+      <div id="sc-icon-box" style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;">
+        <span id="sc-icon" style="font-size:16px;">💤</span>
+      </div>
+      <span id="sc-lbl" style="font-size:9px;color:#94a3b8;">离线</span>
+    </div>
+  </div>
+
+  <!-- 最近游玩（默认隐藏） -->
+  <div id="sc-recent" style="display:none;margin-top:0.75rem;padding-top:0.5rem;border-top:1px solid rgba(255,255,255,0.1);flex:1;">
+    <p style="font-size:10px;color:#94a3b8;margin:0 0 0.375rem 0;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;">最近游玩</p>
+    <div id="sc-recent-list" style="display:flex;flex-direction:column;gap:0.375rem;"></div>
+  </div>
+</Card>
+
+<script is:inline>
+(function(){
+  function q(id){return document.getElementById(id)}
+
+  function render(d){
+    var img=q("sc-img"),emo=q("sc-emoji"),dot=q("sc-dot"),txt=q("sc-txt"),lbl=q("sc-lbl"),
+        box=q("sc-icon-box"),ico=q("sc-icon"),nm=q("sc-name"),tw=q("sc-time-wrap"),
+        rc=q("sc-recent"),rl=q("sc-recent-list"),tm=q("sc-time");
+    if(!nm)return;
+
+    // 先重置
+    if(img){img.style.display="none"}
+    if(emo){emo.style.display="none"}
+    if(tw){tw.style.display="none"}
+    if(rc){rc.style.display="none"}
+    if(dot){dot.style.background="#9ca3af"}
+    if(txt){txt.textContent="离线";txt.style.color="#6b7280"}
+    if(lbl){lbl.textContent="离线"}
+    if(box){box.style.background="rgba(255,255,255,0.05)"}
+    if(ico){ico.textContent="💤"}
+
+    if(d && d.isPlaying && d.gameName){
+      // 正在玩
+      if(dot){dot.style.background="#4ade80"}
+      if(txt){txt.textContent="游戏中";txt.style.color="#4ade80"}
+      if(lbl){lbl.textContent="正在玩"}
+      if(box){box.style.background="#4ade80"}
+      if(ico){ico.textContent="🎮"}
+      nm.textContent=d.gameName;
+      nm.style.whiteSpace="nowrap";
+      nm.style.overflow="hidden";
+      nm.style.textOverflow="ellipsis";
+      if(d.gameIcon && img){img.src=d.gameIcon;img.style.display="block"}
+      if(tw){tw.style.display="flex"}
+      if(tm){
+        if(d.playTime){tm.textContent=d.playTime}
+        else{tm.textContent="统计中..."}
+      }
+    }else if(d && d.recentlyPlayed && d.recentlyPlayed.length>0){
+      // 有最近游玩
+      if(dot){dot.style.background="#d8b4fe"}
+      if(txt){txt.textContent="最近游玩";txt.style.color="#d8b4fe"}
+      if(lbl){lbl.textContent="离线"}
+      if(box){box.style.background="rgba(192,132,252,0.2)"}
+      if(ico){ico.textContent="💜"}
+      nm.textContent=d.recentlyPlayed[0].name;
+      nm.style.whiteSpace="nowrap";
+      nm.style.overflow="hidden";
+      nm.style.textOverflow="ellipsis";
+      if(d.recentlyPlayed[0].iconUrl && img){img.src=d.recentlyPlayed[0].iconUrl;img.style.display="block"}
+      if(rc){rc.style.display="block"}
+      if(rl){
+        rl.innerHTML="";
+        for(var i=0;i<d.recentlyPlayed.length;i++){
+          var g=d.recentlyPlayed[i];
+          var it=document.createElement("div");
+          it.style.cssText="display:flex;align-items:center;gap:0.5rem;font-size:11px;color:#94a3b8;";
+          var gi=document.createElement("img");
+          gi.style.cssText="width:20px;height:20px;border-radius:4px;object-fit:cover;";
+          gi.src=g.iconUrl||"";gi.alt=g.name;
+          var gn=document.createElement("span");
+          gn.style.cssText="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;";
+          gn.textContent=g.name;
+          var gt=document.createElement("span");
+          gt.style.cssText="font-size:10px;color:#64748b;flex-shrink:0;";
+          gt.textContent=g.playTime;
+          it.appendChild(gi);it.appendChild(gn);it.appendChild(gt);
+          rl.appendChild(it);
+        }
+      }
+    }else if(d && d.status==="online"){
+      // 在线但没在玩也没最近游玩
+      if(dot){dot.style.background="#4ade80"}
+      if(txt){txt.textContent="在线";txt.style.color="#4ade80"}
+      if(lbl){lbl.textContent="在线"}
+      if(box){box.style.background="rgba(74,222,128,0.25)"}
+      if(ico){ico.textContent="🟢"}
+      nm.textContent="Steam在线中，但没有在玩游戏";
+      nm.style.whiteSpace="normal";
+      nm.style.overflow="visible";
+      nm.style.textOverflow="clip";
+      if(emo){emo.style.display="block"}
+    }else{
+      // 离线
+      nm.textContent="Steam处于离线状态，大概率是在睡大觉";
+      nm.style.whiteSpace="normal";
+      nm.style.overflow="visible";
+      nm.style.textOverflow="clip";
+      if(emo){emo.style.display="block"}
+    }
+  }
+
+  // 异步获取Steam数据并更新
+  setTimeout(function(){
+    var x=new XMLHttpRequest();
+    x.open("GET","/api/steam",true);
+    x.timeout=5000;
+    x.onload=function(){
+      if(x.status>=200&&x.status<300){
+        try{render(JSON.parse(x.responseText))}catch(e){}
+      }
+    };
+    x.onerror=function(){};
+    x.ontimeout=function(){};
+    x.send();
+  },100);
+
+})();
+</script>

@@ -1,95 +1,43 @@
-# ⚡️astro-bento-portfolio
+# 🎮 Chengxi's Digital Playground
 
-## A personal portfolio website made using `Astro`.
-
-![astro-bento-portfolio | Bento-like Personal Porfolio Template](public/preview.png)
-
-To view a demo example, **[click here](https://sparkly-speculoos-0c9197.netlify.app/)**
-
-or my portfolio **[click here](https://gianmarcocavallo.com/)**
-
-## Features
-
-- Modern and Minimal bento-like, sleek UI Design
-- All in one page (almost)
-- Fully Responsive
-- Performances and SEO optimizations
-- Ready to be deployed on [Netlify](https://www.netlify.com/)
-- Blog
-- RSS support (your-domain/rss.xml)
-- Cool 3d globe
+个人 Bento 风格网站，展示项目、博客、Minecraft 皮肤、Steam 游戏状态等。
 
 ## Tech Stack
 
-- [Astro](https://astro.build)
-- [unocss](https://unocss.dev/)
-- [motion](https://motion.dev/)
-- [d3](https://d3js.org/)
+- [Astro](https://astro.build) (SSR, Server Endpoints)
+- [UnoCSS](https://unocss.dev/)
+- [Motion](https://motion.dev/) (formerly Framer Motion)
+- [Solid.js](https://solidjs.com/)
+- [Svelte](https://svelte.dev/)
+- [d3](https://d3js.org/) (3D Globe)
+- [Steam Web API](https://steamcommunity.com/dev)
 
-# Steps ▶️
+## Features
 
-```bash
-# Clone this repository
-$ git clone https://github.com/Ladvace/astro-bento-portfolio
-```
+- Bento Grid 布局
+- 3D Steam 状态卡片（实时游戏状态）
+- Minecraft 3D 皮肤渲染
+- 访客留言板
+- 博客系统 + RSS
+- 3D 地球（到访国家展示）
+- 图片防盗保护（Canvas 渲染 + Blob URL）
+- OC 展示卡片
 
-```bash
-# Go into the repository
-$ cd astro-bento-portfolio
-```
-
-```bash
-# Install dependencies
-$ pnpm install
-or
-$ npm install
-```
+## 环境变量
 
 ```bash
-# Start the project in development
-$ pnpm run dev
-or
-$ npm run dev
+# .env
+STEAM_API_KEY=你的32位Steam API密钥
+STEAM_ID=你的17位Steam64位ID
 ```
 
-# Customize your portfolio
-After installing dependencies, run:
+## 本地开发
 
 ```bash
-$ pnpm run site-setup
+pnpm install
+pnpm dev
 ```
 
-This updates `src/site-config.ts` (name, links, email, timezone, etc.) and sets `SITE_URL` in `.env`.
+## Deploy
 
-Then start the dev server again (`pnpm run dev`).
-
-Even after `site-setup`, you still need to swap the avatar/memoji images (replace `src/assets/me*.webp` with your own).
-
-## REMOVE THE umami analytics script tag (or replace it with your id) in `src/layouts/BasicLayout.astro`
-
-# Configuration
-
-`site` and sitemap/robots URLs are derived from `SITE_URL` (set by `pnpm run site-setup`).
-
-# Deploy on Netlify 🚀
-
-Deploying your website on Netlify it's optional but I reccomand it in order to deploy it faster and easly.
-
-You just need to fork this repo and linking it to your Netlify account.
-
-or
-
-[![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/Ladvace/astro-bento-portfolio)
-
-## Database Configuration
-
-This project uses Astro DB with Turso for the guestbook feature. Set the following environment variables:
-
-- `ASTRO_DB_REMOTE_URL=libsql://portfolio-ladvace.aws-eu-west-1.turso.io`
-- `ASTRO_DB_APP_TOKEN=your-auth-token-here`
-
-Run `pnpm astro db push` to initialize the database schema.
-
-## Authors ❤️
-
-- Gianmarco - https://github.com/Ladvace
+自动部署到 Netlify（关联 GitHub 仓库即可）。

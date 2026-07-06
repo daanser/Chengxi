@@ -1,0 +1,144 @@
+---
+import Card from "./Card/index.astro";
+---
+
+<Card
+  colSpan="md:col-span-1"
+  rowSpan="md:row-span-1"
+  title="🎵 在听"
+  padding="p-4"
+  acgGlow={true}
+>
+  <div class="flex flex-col h-full mt-1">
+    <!-- 播放器 UI -->
+    <div class="flex items-center gap-3">
+      <!-- 播放/暂停按钮 -->
+      <button
+        id="audio-play-btn"
+        class="w-10 h-10 rounded-full bg-primary-500/20 border border-primary-500/30 flex items-center justify-center flex-shrink-0 cursor-pointer hover:bg-primary-500/30 transition-colors duration-200"
+        aria-label="播放 / 暂停"
+      >
+        <svg
+          id="audio-play-icon"
+          class="w-5 h-5 text-primary-500 ml-0.5"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path d="M8 5v14l11-7z" />
+        </svg>
+      </button>
+
+      <!-- 曲目信息 -->
+      <div class="flex-1 min-w-0">
+        <p class="text-xs font-medium text-white truncate m-0">
+          千秋恋歌 · シェリル・ノーム
+        </p>
+        <p class="text-[10px] text-darkslate-300 m-0 truncate">
+          现场 Live — マクロスF
+        </p>
+      </div>
+
+      <!-- 音频格式标志 -->
+      <span class="text-[9px] font-mono text-darkslate-300 border border-darkslate-400 rounded px-1 py-0.5 leading-none">
+        FLAC
+      </span>
+    </div>
+
+    <!-- 波形装饰 (SVG 动画) -->
+    <div class="mt-2 h-8 w-full flex items-end gap-[2px]" id="waveform-container">
+      <svg
+        class="w-full h-full"
+        viewBox="0 0 200 32"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <linearGradient id="wave-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="var(--primary-500)" stop-opacity="0.6" />
+            <stop offset="50%" stop-color="var(--primary-400)" stop-opacity="0.8" />
+            <stop offset="100%" stop-color="var(--primary-500)" stop-opacity="0.6" />
+          </linearGradient>
+        </defs>
+        <!-- 波形由 JS 动态生成 -->
+      </svg>
+    </div>
+
+    <!-- 进度条 -->
+    <div class="mt-1 flex items-center gap-2">
+      <span class="text-[9px] text-darkslate-300 w-8 text-right tabular-nums" id="audio-current">0:00</span>
+      <div class="flex-1 h-1 rounded-full bg-darkslate-400 overflow-hidden">
+        <div
+          id="audio-progress"
+          class="h-full w-0 rounded-full bg-gradient-to-r from-primary-500 to-purple-500 transition-all duration-300"
+          style="width: 42%"
+        />
+      </div>
+      <span class="text-[9px] text-darkslate-300 w-8 tabular-nums" id="audio-duration">3:42</span>
+    </div>
+  </div>
+</Card>
+
+<script>
+  function initWaveform() {
+    const container = document.getElementById("waveform-container");
+    if (!container) return;
+
+    const svg = container.querySelector("svg");
+    if (!svg) return;
+
+    const barCount = 48;
+    let html = "";
+
+    for (let i = 0; i < barCount; i++) {
+      // 模拟音乐波形高度 (中间高两边低的正态分布随机)
+      const centerFactor = 1 - Math.abs(i - barCount / 2) / (barCount / 2);
+      const randomFactor = 0.3 + Math.random() * 0.7;
+      const height = Math.max(6, Math.min(28, centerFactor * 28 * randomFactor));
+
+      const x = (i / barCount) * 200;
+      const w = 200 / barCount - 1.5;
+
+      html += `<rect x="${x}" y="${32 - height}" width="${w}" height="${height}" fill="url(#wave-grad)" rx="1" opacity="${0.3 + centerFactor * 0.7}">
+        <animate attributeName="height" values="${height};${height * (0.5 + Math.random() * 0.8)};${height}" dur="${1 + Math.random() * 1.5}s" repeatCount="indefinite" />
+        <animate attributeName="y" values="${32 - height};${32 - height * (0.5 + Math.random() * 0.8)};${32 - height}" dur="${1 + Math.random() * 1.5}s" repeatCount="indefinite" />
+      </rect>`;
+    }
+
+    svg.innerHTML += html;
+  }
+
+  function initPlayButton() {
+    const btn = document.getElementById("audio-play-btn");
+    const icon = document.getElementById("audio-play-icon");
+    if (!btn || !icon) return;
+
+    let isPlaying = false;
+
+    btn.addEventListener("click", () => {
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        // 切换到暂停图标
+        icon.innerHTML = `
+          <rect x="6" y="5" width="4" height="14" rx="1" />
+          <rect x="14" y="5" width="4" height="14" rx="1" />
+        `;
+        btn.classList.add("bg-primary-500/30");
+      } else {
+        // 切换到播放图标
+        icon.innerHTML = `<path d="M8 5v14l11-7z" />`;
+        btn.classList.remove("bg-primary-500/30");
+      }
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      initWaveform();
+      initPlayButton();
+    });
+  } else {
+    initWaveform();
+    initPlayButton();
+  }
+</script>

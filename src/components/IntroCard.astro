@@ -3,181 +3,191 @@ import Card from "./Card/index.astro";
 import Button from "./Button.astro";
 import { LINKS } from "../lib/constants";
 import { Icon } from "astro-icon/components";
-import Tooltip from "./Tooltip/index";
-import { Image } from "astro:assets";
 import { SITE } from "../site-config";
-import MemojiAvatarDefault from "../assets/me.webp";
-import MemojiAvatarBlue from "../assets/me-blue.webp";
-import MemojiAvatarGreen from "../assets/me-green.webp";
-import MemojiAvatarPurple from "../assets/me-purple.webp";
-import MemojiAvatarYellow from "../assets/me-yellow.webp";
+import MinecraftAvatar from "./MinecraftAvatar";
 ---
 
 <Card colSpan="md:col-span-3" rowSpan="md:row-span-4">
   <div class="flex w-full h-full">
     <div class="flex flex-col justify-between md:max-h-[300px] gap-4">
       <div class="flex flex-col h-full">
-        <h6 class="text-sm font-light m-0 text-darkslate-300">welcome</h6>
+        <h6 class="text-sm font-light m-0 text-darkslate-300">欢迎</h6>
 
         <p class="sr-only">
-          Hi, I'm {SITE.author.fullName}, a software developer with strong focus on
-          the user experience, animations, micro interactions and SEO. Feel
-          free to reach out to me if you have any project in mind, want to
-          collaborate, or just want to say hello.
+          你好，我是 Chengxi，网上也有很多人叫我大安 (Daan)。08年，坐标北京，目前高三(G12) Gap year。
         </p>
         <p aria-hidden="true" class="m-0 font-light text-md">
           <span>
-            Hi, I'm <b class="font-bold">{SITE.author.fullName}</b>, a software
-            developer with strong focus on the user experience, animations,
-            micro interactions and SEO.
+            你好，我是 <b class="font-bold">Chengxi</b>，网上也有很多人叫我<b class="font-bold">大安 (Daan)</b>。08年，坐标北京，目前高三(G12) Gap year。
           </span>
           <br />
           <span class="block mt-2">
-            Feel free to reach out to me if you have any project in mind, want
-            to collaborate, or just want to say hello.
+            社会学预备役(?)，业余写码，Minecraft 玩家。日常游走在经济学、赛博空间和二次元之间。现实中是个"持证含糖、拿着医嘱还不听"的叛逆家伙，但在自己感兴趣的社科与技术议题上绝对认真。
+          </span>
+          <br />
+          <span class="block mt-1 text-darkslate-300">🗣️ Lang: CN / EN</span>
+          <span class="block mt-2">
+            这里是我的数字游乐场。如果有好玩的想法，或者只是想随便唠唠，随时戳我。
           </span>
         </p>
       </div>
       <div class="flex flex-col lg:flex-row gap-2 lg:gap-4">
         <div class="flex gap-2 lg:gap-4">
-          <a href={LINKS.github} aria-label="github profile" target="_blank">
-            <Button aria-label="github profile">
+          <!-- GitHub -->
+          <a href={LINKS.github} aria-label="GitHub" target="_blank">
+            <Button aria-label="GitHub">
               <Icon name="ri:github-fill" />
-              <span class="sr-only" data-umami-event="github button"
-                >GitHub Profile</span
-              >
+              <span class="sr-only" data-umami-event="github button">GitHub</span>
             </Button>
           </a>
+          <!-- Twitter (小蓝鸟) -->
+          <a href={LINKS.twitter} aria-label="Twitter" target="_blank">
+            <Button aria-label="Twitter">
+              <Icon name="ri:twitter-fill" />
+              <span class="sr-only" data-umami-event="twitter button">Twitter</span>
+            </Button>
+          </a>
+          <!-- NameMC (苦力怕) -->
           <a
-            href={LINKS.linkedin}
-            aria-label="linkedin profile"
+            href="https://ja.namemc.com/profile/daan_awa.1"
             target="_blank"
+            aria-label="NameMC"
           >
-            <Button aria-label="linkedin profile">
-              <Icon name="ri:linkedin-box-fill" />
-              <span class="sr-only" data-umami-event="linkedin button"
-                >Linkedin Profile</span
-              >
+            <Button aria-label="NameMC">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="2" width="18" height="20" rx="3" fill="currentColor" opacity="0.15"/>
+                <rect x="3" y="2" width="18" height="20" rx="3" stroke="currentColor" stroke-width="1.2"/>
+                <rect x="7" y="7" width="2" height="3" fill="currentColor"/>
+                <rect x="11" y="7" width="2" height="3" fill="currentColor"/>
+                <rect x="15" y="7" width="2" height="3" fill="currentColor"/>
+                <rect x="8" y="13" width="8" height="2" fill="currentColor"/>
+                <rect x="8" y="15" width="2" height="2" fill="currentColor"/>
+                <rect x="14" y="15" width="2" height="2" fill="currentColor"/>
+                <rect x="10" y="15" width="4" height="2" fill="currentColor" opacity="0.3"/>
+              </svg>
+              <span class="sr-only" data-umami-event="namemc button">NameMC</span>
             </Button>
           </a>
-          <a href={LINKS.dribble} aria-label="dribble profile" target="_blank">
-            <Button aria-label="dribble profile">
-              <Icon name="ri:dribbble-fill" />
-              <span class="sr-only" data-umami-event="Dribble button"
-                >Dribble Profile</span
-              >
+          <!-- Telegram -->
+          <a href={LINKS.telegram} aria-label="Telegram" target="_blank">
+            <Button aria-label="Telegram">
+              <Icon name="ri:telegram-fill" />
+              <span class="sr-only" data-umami-event="telegram button">Telegram</span>
             </Button>
           </a>
-          <Tooltip client:visible>
-            <Button aria-label="easter egg btn">
-              <Icon name="ri:emotion-laugh-line" />
-              <span class="sr-only" data-umami-event="Easter egg button"
-                >Easter egg button</span
-              >
+          <!-- Email -->
+          <a href={`mailto:${LINKS.email}`} aria-label="Email">
+            <Button aria-label="Email">
+              <Icon name="ri:mail-fill" />
+              <span class="sr-only" data-umami-event="email button">Email</span>
             </Button>
-          </Tooltip>
+          </a>
         </div>
-        <Button
-          aria-label="book a call"
-          data-cal-link={SITE.cal.username}
-        >
-          <span
-            data-umami-event="Book a call"
-            data-cal-link={SITE.cal.username}
-            class="font-bold whitespace-nowrap">Book a call</span
-          >
-        </Button>
       </div>
     </div>
-    <Image
-      id="memoji-avatar"
-      quality="max"
-      src={MemojiAvatarDefault}
-      data-theme-default={MemojiAvatarDefault.src}
-      data-theme-yellow-theme={MemojiAvatarYellow.src}
-      data-theme-blue-theme={MemojiAvatarBlue.src}
-      data-theme-green-theme={MemojiAvatarGreen.src}
-      data-theme-purple-theme={MemojiAvatarPurple.src}
-      class="w-auto max-h-[300px] select-none absolute right-[-110px] bottom-[-20px] z-[-1] opacity-50 md:opacity-100 md:relative md:right-auto md:bottom-auto md:z-auto pointer-events-none"
-      alt={`memoji of ${SITE.author.firstName}`}
-      loading="eager"
-    />
+
+    <!-- Minecraft 3D 皮肤头像容器 (带对话气泡) -->
+    <div class="flex flex-col items-center w-full max-w-[180px] h-full min-h-[340px] md:min-h-[400px] flex-shrink-0 relative">
+      <!-- 对话气泡 -->
+      <div
+        id="speech-bubble"
+        class="absolute -top-6 right-0 z-10 opacity-0 transition-opacity duration-300 pointer-events-none"
+      >
+        <div class="bg-darkslate-800 border border-darkslate-400 rounded-xl px-3 py-2 text-[11px] text-white shadow-lg relative w-max max-w-[190px]">
+          <span id="bubble-text">你好呀！👋</span>
+          <div class="absolute -bottom-1.5 left-1/2 ml-1 w-3 h-3 bg-darkslate-800 border-l border-b border-darkslate-400 rotate-45" />
+        </div>
+      </div>
+
+      <!-- Minecraft Avatar -->
+      <MinecraftAvatar client:visible />
+    </div>
   </div>
 </Card>
 
 <script>
-  import { animate } from "motion";
+  // === 对话气泡 ===
+  const bubble = document.getElementById("speech-bubble");
+  const bubbleText = document.getElementById("bubble-text");
+  const canvas = document.getElementById("mc-avatar-canvas");
+  let clickCount = 0;
+  let cooldownTimer: ReturnType<typeof setTimeout> | null = null;
+  const COOLDOWN_MS = 10_000;
 
-  function updateMemojiImage() {
-    const avatarImg = document.getElementById(
-      "memoji-avatar"
-    ) as HTMLImageElement;
-    if (!avatarImg) return;
+  // 正常 (0-9 次)
+  const normalMsgs = [
+    "你好呀～今天过得怎么样？👋",
+    "要点我一下吗？嘿嘿 😊",
+    "代码写完了吗？早点休息哦 💻",
+    "好想打一局雀魂啊 🀄",
+    "最近在看 超时空辉夜姬  🎵",
+    "Chengxi 是小猪哦！",
+    "要不要一起联机？🎮",
+    "今天吃了什么好吃的？🍜",
+    "周末去哪玩呀～ 🌊",
+    "晚安晚安 (≧▽≦) 🌙",
+  ];
 
-    const theme = localStorage.getItem("theme") || "default";
-    const themeClass = theme === "default" ? "default" : theme;
-    const imageSrc =
-      avatarImg.getAttribute(`data-theme-${themeClass}`) ||
-      avatarImg.getAttribute("data-theme-default");
+  // 呆萌狂怒 (10-19 次)
+  const angryMsgs = [
+    "还点？！(╯°□°）╯︵ ┻━┻",
+    "够了够了！我要生气了！😤",
+    "你是有多无聊啊… 🙄",
+    "再点我就钻进屏幕咬你！🦷",
+    "💢💢💢 怒！",
+    "_(:3」∠)_ 累了，你点吧…",
+    "你是想把我点秃吗？！🧑‍🦲",
+    "我要报警了！🚔",
+    "呼…哈…(#｀皿´)",
+    "你等着我去叫末影龙 🐉",
+  ];
 
-    if (imageSrc && avatarImg.src !== imageSrc) {
-      avatarImg.src = imageSrc;
-      if (avatarImg.srcset) {
-        avatarImg.srcset = "";
+  // 病娇 (20+ 次)
+  const yandereMsgs = [
+    "呵呵…你很喜欢点我吗？❤️",
+    "再点一下…我就把你关起来哦～🔒",
+    "你…永远都是我的了…嘻嘻 🥰",
+    "点吧点吧…反正你也逃不掉呢～",
+    "你的手指…好可爱啊…想永远留着 💕",
+    "我们…会永远在一起的吧？😇",
+    "喜欢我嘛？那就一直点下去呀 ❤️‍🔥",
+    "你要是敢停下来…呵呵 🗡️",
+    "你只能看着我一个人哦 👁️👁️",
+    "来吧…再多点几下…让我感受你 💗",
+  ];
+
+  function getMessage(count: number): string {
+    if (count < 10) return normalMsgs[count];
+    if (count < 20) return angryMsgs[count - 10];
+    return yandereMsgs[(count - 20) % yandereMsgs.length];
+  }
+
+  function startCooldown() {
+    if (cooldownTimer) clearTimeout(cooldownTimer);
+    cooldownTimer = setTimeout(() => {
+      clickCount = 0;
+      cooldownTimer = null;
+    }, COOLDOWN_MS);
+  }
+
+  if (canvas && bubble && bubbleText) {
+    canvas.addEventListener("click", () => {
+      bubbleText.textContent = getMessage(clickCount);
+      clickCount++;
+
+      // 进入狂怒或病娇后启动冷却
+      if (clickCount >= 10) {
+        startCooldown();
       }
-    }
-  }
 
-  function initLevitatingAnimation() {
-    const avatarImg = document.getElementById("memoji-avatar") as HTMLElement;
-    if (!avatarImg) return;
+      bubble.classList.remove("opacity-0");
+      bubble.classList.add("opacity-100");
 
-    animate(
-      avatarImg,
-      { y: [-10, 10, -10] },
-      {
-        duration: 3,
-        repeat: Infinity,
-        ease: "easeInOut",
-      }
-    );
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => {
-      updateMemojiImage();
-      initLevitatingAnimation();
-    });
-  } else {
-    updateMemojiImage();
-    initLevitatingAnimation();
-  }
-
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (
-        mutation.type === "attributes" &&
-        mutation.attributeName === "class"
-      ) {
-        updateMemojiImage();
-      }
-    });
-  });
-
-  if (document.body) {
-    observer.observe(document.body, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-  } else {
-    document.addEventListener("DOMContentLoaded", () => {
-      observer.observe(document.body, {
-        attributes: true,
-        attributeFilter: ["class"],
-      });
-      updateMemojiImage();
+      clearTimeout((canvas as any)._bubbleTimeout);
+      (canvas as any)._bubbleTimeout = setTimeout(() => {
+        bubble.classList.remove("opacity-100");
+        bubble.classList.add("opacity-0");
+      }, 3000);
     });
   }
-
-  document.addEventListener("themechange", updateMemojiImage);
 </script>

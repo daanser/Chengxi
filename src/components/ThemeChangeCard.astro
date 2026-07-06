@@ -5,27 +5,27 @@ import Card from "./Card/index.astro";
 <Card colSpan="md:col-span-1" rowSpan="md:row-span-1 flex gap-4" padding="p-4">
   <div class="flex theme-colors flex justify-between items-center w-full max-w-xs">
     <div
-      class="w-10 h-10 rounded-full bg-[#e63946] cursor-pointer border-2 border-transparent"
+      class="w-10 h-10 rounded-full bg-[#5BCEFA] cursor-pointer border-2 border-transparent"
       data-theme="default"
     >
     </div>
     <div
-      class="w-10 h-10 rounded-full bg-yellow-500 cursor-pointer border-2 border-transparent"
+      class="w-10 h-10 rounded-full bg-[#F5A9B8] cursor-pointer border-2 border-transparent"
       data-theme="yellow-theme"
     >
     </div>
     <div
-      class="w-10 h-10 rounded-full bg-blue-500 cursor-pointer border-2 border-transparent"
+      class="w-10 h-10 rounded-full bg-white cursor-pointer border-2 border-transparent"
       data-theme="blue-theme"
     >
     </div>
     <div
-      class="w-10 h-10 rounded-full bg-purple-500 cursor-pointer border-2 border-transparent"
+      class="w-10 h-10 rounded-full bg-[#F5A9B8] cursor-pointer border-2 border-transparent"
       data-theme="purple-theme"
     >
     </div>
     <div
-      class="w-10 h-10 rounded-full bg-green-500 cursor-pointer border-2 border-transparent"
+      class="w-10 h-10 rounded-full bg-[#5BCEFA] cursor-pointer border-2 border-transparent"
       data-theme="green-theme"
     >
     </div>
@@ -36,11 +36,25 @@ import Card from "./Card/index.astro";
   document.addEventListener("DOMContentLoaded", () => {
     const themeButtons = document.querySelectorAll(".theme-colors > div");
 
+    // 默认选中第二个粉色主题 (yellow-theme → #F5A9B8)
+    const DEFAULT_THEME = "yellow-theme";
+
+    // 首次加载: 设置默认值并应用
+    if (!localStorage.getItem("theme") || localStorage.getItem("theme") === "default") {
+      localStorage.setItem("theme", DEFAULT_THEME);
+    }
+
+    const currentTheme = localStorage.getItem("theme") || DEFAULT_THEME;
+    if (currentTheme !== "default") {
+      document.body.classList.add(currentTheme);
+    }
+
+    // 更新选中边框高亮
     const updateSelectedTheme = () => {
-      const currentTheme = localStorage.getItem("theme") || "default";
+      const activeTheme = localStorage.getItem("theme") || DEFAULT_THEME;
       themeButtons.forEach((button) => {
         const themeName = button.getAttribute("data-theme");
-        if (themeName === currentTheme) {
+        if (themeName === activeTheme) {
           button.classList.remove("border-transparent");
           button.classList.add("border-white");
         } else {
@@ -49,7 +63,6 @@ import Card from "./Card/index.astro";
         }
       });
     };
-
     updateSelectedTheme();
 
     themeButtons.forEach((button) => {
