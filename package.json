@@ -4,7 +4,7 @@
   "version": "0.0.2",
   "scripts": {
     "dev": "astro dev",
-    "build": "mkdir -p dist/server && touch dist/server/entry.mjs && astro build",
+    "build": "mkdir -p dist/server && touch dist/server/entry.mjs && astro build && sed -i '' 's/ASSETS/MY_ASSETS/g' dist/server/.prerender/wrangler.json 2>/dev/null; rm -f dist/server/.prerender/wrangler.json 2>/dev/null; echo 'done'",
     "deploy": "wrangler deploy",
     "preview": "wrangler dev",
     "astro": "astro",
