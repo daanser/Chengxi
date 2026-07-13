@@ -35,6 +35,7 @@
     "mdast-util-to-string": "^4.0.0",
     "motion": "^12.38.0",
     "reading-time": "^1.5.0",
+    "sharp": "^0.35.3",
     "skinview3d": "^3.4.2",
     "solid-js": "^1.9.12",
     "svelte": "^5.55.1",
