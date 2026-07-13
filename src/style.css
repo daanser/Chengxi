@@ -89,18 +89,25 @@ body::before {
   --line-size: 80px;
   content: "";
   height: 100vh;
-  width: 101vw;
+  width: 100vw;
   position: fixed;
-  background: linear-gradient(90deg, var(--line-color) 1px, transparent 1px) center /
-      var(--line-size) var(--line-size),
-    linear-gradient(var(--line-color) 1px, transparent 1px) center /
-      var(--line-size) var(--line-size);
+  background:
+    linear-gradient(90deg, var(--line-color) 1px, transparent 1px) center / var(--line-size) var(--line-size),
+    linear-gradient(var(--line-color) 1px, transparent 1px) center / var(--line-size) var(--line-size);
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
   z-index: -1;
   -webkit-mask: linear-gradient(-360deg, transparent 40%, white);
   mask: linear-gradient(-360deg, transparent 40%, white);
+}
+
+/* 移动端背景网格更密集 */
+@media (max-width: 767px) {
+  body::before {
+    --line-size: 40px;
+    -webkit-mask: linear-gradient(-360deg, transparent 30%, white);
+    mask: linear-gradient(-360deg, transparent 30%, white);
+  }
 }
 
 .switchboard {
@@ -173,4 +180,33 @@ body::before {
 .card-acg-glow:hover {
   animation: acg-glow-pulse 3s ease-in-out infinite;
   border-color: rgba(107, 197, 255, 0.35);
+}
+
+/* ===== 移动端全局优化 ===== */
+
+/* 防止移动端点击高亮 */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 按钮和可点击元素在移动端的触摸优化 */
+button, a, [role="button"] {
+  touch-action: manipulation;
+}
+
+/* 移动端滚动条美化 */
+@media (max-width: 767px) {
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+  }
 }

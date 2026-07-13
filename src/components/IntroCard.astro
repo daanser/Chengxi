@@ -8,8 +8,8 @@ import MinecraftAvatar from "./MinecraftAvatar";
 ---
 
 <Card colSpan="md:col-span-3" rowSpan="md:row-span-4">
-  <div class="flex w-full h-full">
-    <div class="flex flex-col justify-between md:max-h-[300px] gap-4">
+  <div class="flex flex-col md:flex-row w-full h-full">
+    <div class="flex flex-col justify-between md:max-h-[300px] gap-4 flex-1 min-w-0">
       <div class="flex flex-col h-full">
         <h6 class="text-sm font-light m-0 text-darkslate-300">欢迎</h6>
 
@@ -87,11 +87,11 @@ import MinecraftAvatar from "./MinecraftAvatar";
     </div>
 
     <!-- Minecraft 3D 皮肤头像容器 (带对话气泡) -->
-    <div class="flex flex-col items-center w-full max-w-[180px] h-full min-h-[340px] md:min-h-[400px] flex-shrink-0 relative">
+    <div class="flex flex-col items-center w-full max-w-[120px] md:max-w-[180px] h-full min-h-[200px] md:min-h-[400px] flex-shrink-0 relative">
       <!-- 对话气泡 -->
       <div
         id="speech-bubble"
-        class="absolute -top-6 right-0 z-10 opacity-0 transition-opacity duration-300 pointer-events-none"
+        class="absolute -top-6 md:right-0 z-10 opacity-0 transition-opacity duration-300 pointer-events-none"
       >
         <div class="bg-darkslate-800 border border-darkslate-400 rounded-xl px-3 py-2 text-[11px] text-white shadow-lg relative w-max max-w-[190px]">
           <span id="bubble-text">你好呀！👋</span>

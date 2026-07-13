@@ -53,11 +53,16 @@ export default function MinecraftAvatar(props: Props) {
   onMount(() => {
     if (!canvasRef) return;
 
+    // 检测是否为移动端（窄屏）
+    const isMobile = window.innerWidth < 768;
+    const viewerWidth = props.width || (isMobile ? 120 : 180);
+    const viewerHeight = props.height || (isMobile ? 160 : 220);
+
     // 初始化 Viewer
     viewer = new SkinViewer({
       canvas: canvasRef,
-      width: props.width || 180,
-      height: props.height || 220,
+      width: viewerWidth,
+      height: viewerHeight,
       skin: skins[0].url,
       background: null as any,
     });
@@ -75,13 +80,15 @@ export default function MinecraftAvatar(props: Props) {
     viewer.controls.enabled = false;
 
     // === 全身像: 适配卡片高度, 角色居中 ===
-    viewer.camera.position.set(0, 5, 24);
+    const camZ = isMobile ? 20 : 24;
+    const modelScale = isMobile ? 0.45 : 0.6;
+    viewer.camera.position.set(0, 5, camZ);
     viewer.camera.fov = 50;
     viewer.camera.updateProjectionMatrix();
     viewer.camera.lookAt(0, 4, 0);
 
     // 缩放玩家模型
-    viewer.playerWrapper.scale.set(0.6, 0.6, 0.6);
+    viewer.playerWrapper.scale.set(modelScale, modelScale, modelScale);
 
     // === 鼠标追踪 (增大幅度) ===
     function onMouseMove(e: MouseEvent) {
@@ -143,8 +150,11 @@ export default function MinecraftAvatar(props: Props) {
       if (!viewer || !canvasRef) return;
       const rect = canvasRef.parentElement?.getBoundingClientRect();
       if (rect) {
-        const w = Math.min(rect.width, props.width || 180);
-        const h = Math.min(rect.height, props.height || 220);
+        const isMobile = window.innerWidth < 768;
+        const maxW = props.width || (isMobile ? 120 : 180);
+        const maxH = props.height || (isMobile ? 160 : 220);
+        const w = Math.min(rect.width, maxW);
+        const h = Math.min(rect.height, maxH);
         viewer.setSize(w, h);
       }
     }

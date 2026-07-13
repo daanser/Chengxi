@@ -1,6 +1,6 @@
 export const SITE = {
   site: {
-    url: "https://gianmarcocavallo.com/",
+    url: "https://blog.chengxi.online/",
   },
   author: {
     firstName: "Chengxi",

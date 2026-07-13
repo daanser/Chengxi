@@ -40,7 +40,7 @@ import { SITE } from "../site-config";
   title={`Chengxi / Daanawa - 一名来自 China Mainland 的废物萌新`}
 >
   <main
-    class="text-white m-auto p-2 grid gap-2 max-w-6xl overflow-hidden relative w-full sm:p-4 sm:gap-2 md:grid-cols-2 md:gap-3 md:p-6 lg:h-screen lg:grid-rows-8 lg:grid-cols-4 lg:gap-4 lg:max-h-[800px]"
+    class="text-white m-auto p-2 grid gap-2 max-w-6xl relative w-full sm:p-4 sm:gap-2 md:grid-cols-2 md:gap-3 md:p-6 lg:h-screen lg:grid-rows-8 lg:grid-cols-4 lg:gap-4 lg:max-h-[800px] lg:overflow-hidden"
   >
     <IntroCard />
     <AboutMe />
@@ -65,13 +65,13 @@ import { SITE } from "../site-config";
         </div>
       </div>
     </Card>
-    <!-- ThemeChangeCard 放到 ContactsCard 底部空位 -->
-    <div style="grid-column: 3; grid-row: 8;">
+    <!-- ThemeChangeCard - 移动端自然流式排列，桌面端定位到第3列第8行 -->
+    <div class="lg:col-start-3 lg:row-start-8">
       <ThemeChangeCard />
     </div>
 
-    <!-- 我的OC 卡片（与 ContactsCard 同尺寸，强制放在第4列第5-8行） -->
-    <div style="grid-column: 4; grid-row: 5 / span 4;">
+    <!-- 我的OC卡片 - 移动端自然流式排列，桌面端定位到第4列第5-8行 -->
+    <div class="lg:col-start-4 lg:row-start-5 lg:row-span-4">
       <Card colSpan="md:col-span-1" rowSpan="md:row-span-4" padding="p-4" title="我的OC">
         <ProtectedImage src="/oc/4k.png" alt="OC" maxLongEdge={540} />
       </Card>
